@@ -2,7 +2,7 @@
     "name": "krak/key-generator",
     "description": "Generation of keys for a variety of purposes",
     "type": "library",
-    "homepage": "http://gitlab.bighead.net/krak/key-generator"
+    "homepage": "http://gitlab.bighead.net/krak/key-generator",
     "keywords": [
         "key-generator"
     ],
