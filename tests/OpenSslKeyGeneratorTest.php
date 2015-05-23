@@ -13,12 +13,17 @@ class OpenSslKeyGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testBinaryLength()
     {
-        $gen = new OpenSslKeyGenerator(4, false);
+        $gen = new OpenSslKeyGenerator(4);
         $this->assertTrue(strlen($gen->generateKey()) == 4);
     }
     public function testHexLength()
     {
-        $gen = new OpenSslKeyGenerator(4);
-        $this->assertTrue(strlen($gen->generateKey()) == 4);
+        $gen = new OpenSslKeyGenerator(4, OpenSslKeyGenerator::HEX);
+        $this->assertTrue(strlen($gen->generateKey()) == 8);
+    }
+    public function testBase64Length()
+    {
+        $gen = new OpenSslKeyGenerator(4, OpenSslKeyGenerator::BASE64);
+        $this->assertTrue(strlen($gen->generateKey()) == 8);
     }
 }

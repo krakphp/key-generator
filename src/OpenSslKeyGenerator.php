@@ -4,23 +4,30 @@ namespace Krak\KeyGenerator;
 
 class OpenSslKeyGenerator implements KeyGenerator
 {
-    private $length;
-    private $to_hex;
+    const BINARY = 0;
+    const HEX = 1;
+    const BASE64 = 2;
 
-    public function __construct($length, $to_hex = true)
+    private $length;
+    private $output;
+
+    public function __construct($length, $output = self::BINARY)
     {
         $this->length = $length;
-        $this->to_hex = $to_hex;
+        $this->output = $output;
     }
 
     public function generateKey()
     {
-        if (!$this->to_hex) {
-            return openssl_random_pseudo_bytes($this->length);
+        $res = openssl_random_pseudo_bytes($this->length);
+
+        if ($this->output == self::HEX) {
+            return bin2hex($res);
+        }
+        if ($this->output == self::BASE64) {
+            return base64_encode($res);
         }
 
-        return bin2hex(
-            openssl_random_pseudo_bytes($this->length / 2)
-        );
+        return $res;
     }
 }
